@@ -3,14 +3,13 @@ import java.util.HashSet;
 public class HashSetDemo {
     public static void main(String[] args) {
 
-        // Create HashSet
         HashSet<String> hs = new HashSet<>();
 
         // Add elements
         hs.add("Java");
         hs.add("Python");
         hs.add("C++");
-        hs.add("Java");   // Duplicate element
+        hs.add("Java");   // Duplicate element will be ignored!!!
 
         // Display HashSet
         System.out.println("HashSet elements:");
