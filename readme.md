@@ -13,6 +13,8 @@
 
 *Complete collection of Java programs for Internal & External Lab Examinations*
 
+**Author:** [Adnan](https://github.com/Adnan-The-Coder) 👨‍💻
+
 </div>
 
 ---
