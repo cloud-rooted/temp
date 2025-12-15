@@ -1,23 +1,29 @@
-// |-> NOTE <-|
+// compile this code as 
+// javac -cp ".;sqlite-jdbc-3.42.0.0.jar" JDBCDemoSQLite.java
 
-// to compile this, command is  'this sql connector is present '
-// javac -cp ".;mysql-connector-j-9.5.0.jar" JDBCDemo.java
-
-// to run this compiled file command is
-// java -cp ".;mysql-connector-j-9.5.0.jar" JDBCDemo  
+// Run this code as
+// java -cp ".;sqlite-jdbc-3.42.0.0.jar" JDBCDemoSQLite
 
 import java.sql.*;
 
-public class JDBCDemo {
+public class JDBCDemoSQLite {
     public static void main(String[] args) {
         try {
+            // SQLite connection (DB file will be created automatically)
             Connection con = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/testdb",
-                "jdbcuser",
-                "jdbc123"
+                "jdbc:sqlite:student.db"
             );
 
             Statement stmt = con.createStatement();
+
+            // Create table if not exists
+            String createTable =
+                "CREATE TABLE IF NOT EXISTS student (" +
+                "id INTEGER PRIMARY KEY, " +
+                "name TEXT, " +
+                "marks INTEGER" +
+                ")";
+            stmt.execute(createTable);
 
             // First SELECT
             ResultSet rs = stmt.executeQuery("SELECT * FROM student");
@@ -25,15 +31,15 @@ public class JDBCDemo {
             System.out.println("ID\tName\tMarks");
             while (rs.next()) {
                 System.out.println(
-                    rs.getInt(1) + "\t" +
-                    rs.getString(2) + "\t" +
-                    rs.getInt(3)
+                    rs.getInt("id") + "\t" +
+                    rs.getString("name") + "\t" +
+                    rs.getInt("marks")
                 );
             }
 
             // INSERT
             int rowsInserted = stmt.executeUpdate(
-                "INSERT INTO student VALUES " +
+                "INSERT OR IGNORE INTO student VALUES " +
                 "(1, 'Reacher', 98), " +
                 "(2, 'Jack', 92)"
             );
@@ -45,9 +51,9 @@ public class JDBCDemo {
             System.out.println("ID\tName\tMarks");
             while (rs2.next()) {
                 System.out.println(
-                    rs2.getInt(1) + "\t" +
-                    rs2.getString(2) + "\t" +
-                    rs2.getInt(3)
+                    rs2.getInt("id") + "\t" +
+                    rs2.getString("name") + "\t" +
+                    rs2.getInt("marks")
                 );
             }
 
